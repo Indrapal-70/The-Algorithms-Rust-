@@ -88,16 +88,12 @@ mod tests {
 
     #[test]
     fn test_sgd_empty_data() {
-        fn sample_derivative(_params: &[f64], _sample: &f64) -> Vec<f64> {
-            vec![1.0]
-        }
-
         let mut x = vec![5.0, 6.0];
         let initial_x = x.clone();
         let empty_data: Vec<f64> = vec![];
 
         let minimized =
-            stochastic_gradient_descent(sample_derivative, &mut x, &empty_data, 0.01, 100);
+            stochastic_gradient_descent(|_params, _sample| vec![], &mut x, &empty_data, 0.01, 100);
 
         assert_eq!(minimized, &initial_x);
     }
@@ -114,6 +110,18 @@ mod tests {
         let minimized = stochastic_gradient_descent(sample_derivative, &mut x, &data, 0.01, 100);
 
         assert!(minimized.is_empty());
+    }
+
+    #[test]
+    fn test_sgd_zero_epochs() {
+        let mut x = vec![5.0, 6.0];
+        let initial_x = x.clone();
+        let data = vec![1.0, 2.0];
+
+        let minimized =
+            stochastic_gradient_descent(|_params, _sample| vec![], &mut x, &data, 0.01, 0);
+
+        assert_eq!(minimized, &initial_x);
     }
 
     #[test]
