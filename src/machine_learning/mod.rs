@@ -23,7 +23,7 @@ pub use self::loss_function::{
     neg_log_likelihood,
 };
 pub use self::naive_bayes::naive_bayes;
-pub use self::optimization::{gradient_descent, Adam};
+pub use self::optimization::{gradient_descent, stochastic_gradient_descent, Adam};
 pub use self::perceptron::{classify, perceptron};
 pub use self::principal_component_analysis::principal_component_analysis;
 pub use self::random_forest::random_forest;
